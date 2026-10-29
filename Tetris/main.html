@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>tetris</title><link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+<main class="app">
+  <section class="game-shell">
+    <div class="top-actions floating-actions">
+      <button id="themeBtn" class="icon-btn" aria-label="Ganti tema" title="Ganti tema">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button id="settingsBtn" class="icon-btn" aria-label="Settings" title="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
+      </button>
+    </div>
+    <div class="layout">
+      <div class="board-wrap">
+        <div id="intro" class="intro">
+          <div class="intro-orbit"><i></i><i></i><i></i><i></i></div>
+          <div class="intro-title">ready, set,<br><span>stack!</span></div>
+          <p>Susun blok, pecahkan baris, dan naik level.</p>
+          <button id="startBtn" class="primary">Mulai bermain <span>↗</span></button>
+        </div>
+        <canvas id="board" width="300" height="600" aria-label="Papan Tetris"></canvas>
+        <div id="countdown" class="countdown hide" aria-live="assertive">
+          <i class="cd-ring"></i><i class="cd-ring r2"></i>
+          <div class="cd-box"><span id="cdNum" class="cd-num">3</span></div>
+        </div>
+        <div id="levelToast" class="level-toast"></div>
+        <div id="pauseOverlay" class="pause-overlay hide"><b>PAUSED</b><small>klik / tekan P untuk lanjut</small></div>
+      </div>
+      <aside class="sidebar">
+        <div class="stat-card score-card"><span class="eyebrow">SCORE</span><strong id="score">000000</strong><div class="score-line"><span>BEST</span><b id="best">000000</b></div></div>
+        <div class="mini-grid">
+          <div class="stat-card"><span class="eyebrow">LEVEL</span><strong id="level">01</strong></div>
+          <div class="stat-card"><span class="eyebrow">LINES</span><strong id="lines">00</strong></div>
+        </div>
+        <div class="stat-card next-card"><span class="eyebrow">NEXT BLOCK</span><canvas id="next" width="120" height="100"></canvas></div>
+        <div class="stat-card controls-card"><span class="eyebrow">CONTROLS</span><div><kbd>←</kbd><kbd>→</kbd> Move</div><div><kbd>↑</kbd> Rotate <kbd>↓</kbd> Soft drop</div><div><kbd>Space</kbd> Hard drop</div></div>
+        <button id="musicBtn" class="secondary"></button>
+      </aside>
+    </div>
+    <div class="mobile-hint">Geser kiri / kanan untuk bergerak, geser ke bawah untuk mempercepat jatuh.</div>
+    <div class="mobile-controls"><button data-move="left" aria-label="Kiri">←</button><button data-move="down" aria-label="Jatuh lebih cepat">↓</button><button data-move="right" aria-label="Kanan">→</button></div>
+    <footer class="credit">
+      <span>By <b>Rationatsu</b></span>
+      <div class="credit-links">
+        <a class="link-btn" href="https://github.com/chiraanatsumii/gamerandom" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>Reference</a>
+        <a class="link-btn" href="https://github.com/Rationatsu" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4"/></svg>Repo</a>
+      </div>
+    </footer>
+  </section>
+</main>
+<div id="settingsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+ <div class="modal-card"><button id="closeSettings" class="close-btn" aria-label="Tutup"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="eyebrow">PERSONALIZE</span><h2 id="settingsTitle">Game settings</h2>
+  <div class="setting-row"><div><b>Theme</b><small>Pilih suasana favoritmu</small></div><div class="theme-options">
+    <button data-theme-choice="light"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Light</button>
+    <button data-theme-choice="dark"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Dark</button></div></div>
+  <div class="setting-row"><div><b>Animasi</b><small>Countdown, animasi blok, tombol &amp; transisi</small></div><div class="theme-options"><button data-anim-choice="on">On</button><button data-anim-choice="off">Off</button></div></div>
+  <div class="setting-row"><div><b>Keybinds</b><small>Pilih aksi, lalu tekan tombol baru</small></div></div>
+  <div id="keybinds" class="keybinds"></div><p id="bindStatus" class="bind-status">Klik sebuah tombol untuk mengganti keybind.</p>
+  <div class="setting-row"><div><b>Background music</b><small>Pure Vibrance · file audio kamu</small></div><button id="modalMusic" class="secondary"></button></div>
+  <button id="resetBinds" class="text-btn">Pulihkan keybind default</button>
+ </div>
+</div>
+<div id="gameOver" class="modal hidden" role="dialog" aria-modal="true">
+ <div class="modal-card gameover-card"><div class="gameover-mark">:<</div><span class="eyebrow">GAME OVER</span><h2>Stack happens.</h2><p>Skor kamu <strong id="finalScore">0</strong>. Mau coba lagi?</p><button id="restartBtn" class="primary">Main lagi ↗</button></div>
+</div>
+<audio id="music" src="assets/Pure_Vibrance.mp3" loop preload="auto"></audio>
+<script src="game.js"></script>
+</body></html>
