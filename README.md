@@ -12,5 +12,3 @@ Game Tetris :3
 -  **Sound Effects (SFX)**: Efek suara interaktif saat memutar balok, menjatuhkan balok, dan game over.
 -  **Responsif**: Nyaman dimainkan melalui browser desktop maupun perangkat seluler.
 -  **Ringan & Cepat**: Performa rendering mulus berbasis HTML5 Canvas & JavaScript murni.
-
-##  Cara Menjalankan Secara Lokal.
