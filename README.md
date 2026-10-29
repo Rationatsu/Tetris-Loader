@@ -1,7 +1,7 @@
 # Tetris Compiler
 
 Game Tetris :3
-
+V alpha 1.0 - reference : https://github.com/chiraanatsumii/gamerandom
  **Demo Langsung**: [tetriscompiler.lovable.app](https://tetriscompiler.lovable.app)
 
 ---
